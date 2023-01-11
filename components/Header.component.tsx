@@ -1,10 +1,38 @@
+'use client';
+
 import { TbLogout } from 'react-icons/tb';
 import { GrNotification } from 'react-icons/gr';
 import { RiNotification4Line } from 'react-icons/ri';
 import { FiSearch } from 'react-icons/fi';
 import Image from 'next/image';
+import { useState, useEffect } from 'react';
+
+
 
 export default function Header () {
+  const [query, setQuery] = useState<string>('');
+  const [results, setResults] = useState<any[]>([]);
+
+
+  const handleChange = (event: any) => {
+    setQuery(event.target.value);
+  }
+
+  useEffect(() => {
+    const rootUrl = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US&page=1&include_adult=false&query=${query}`;
+
+    fetch(rootUrl)
+      .then((result) => {
+        result.json()
+        .then(data => {
+          console.log(data);
+          setResults(data.results);
+        });
+      }).catch(err => {
+        console.log(err);
+      })
+  }, [query]);
+
   return (
     <header className="w-full font-sans">
       {/** desktop header  */}
@@ -15,7 +43,15 @@ export default function Header () {
             <div className={`absolute top-0 left-0 h-full flex flex-col justify-center rounded-tl-3xl rounded-bl-3xl text-lightgray pl-6`}>
               <FiSearch size={24} />
             </div>
-            <input placeholder='Search for movies, TV shows...' type="text" className={`bg-darkgray rounded-3xl w-full text-lightgray text-md15 font-bold p-3 pl-16`} />
+            <input onChange={handleChange} value={query} placeholder='Search for movies, TV shows...' type="text" className={`bg-darkgray rounded-3xl w-full text-lightgray text-md15 font-bold p-3 pl-16`} />
+
+            <div className="text-white bg-darkgray">
+            {
+              results.map((res, idx) => {
+                return <p key={idx} className={`border-b border-white`}>{res.title}</p>
+              })
+            }
+            </div>
           </div>
 
           <div className={`flex flex-row md:w-1/4 lg:w-1/5 justify-end items-center`}>
