@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: any }) {
   }
 
   useEffect(() => {
-    const rootUrl = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US&page=1&include_adult=false&query=${query}`;
+    const rootUrl = `https://api.themoviedb.org/3/search/multi?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US&page=1&include_adult=false&query=${query}`;
 
     if (query) {
       fetch(rootUrl)
