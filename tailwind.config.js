@@ -14,6 +14,7 @@ module.exports = {
         darkgray: '#212121',
         lightgray: '#666666',
         primary: '#3DD2CC',
+        gold: '#FFD700',
       },
       fontFamily: {
         sans: ['Poppins', 'sans-serif'],

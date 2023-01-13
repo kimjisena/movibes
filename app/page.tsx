@@ -2,6 +2,7 @@ import Categories from "./Categories.component";
 import Services from "./Services.component";
 import Featured from "./Featured.component";
 import SectionDivider from "../components/SectionDivider.component";
+import Section from "../components/Section.component";
 
 export default function Page() {
   return (
@@ -10,7 +11,9 @@ export default function Page() {
         <Featured />
 
         <div className={`w-full`}>
-          <SectionDivider />
+          <Section name="Trending" />
+          <Section name="Trending" />
+          <Section name="Trending" />
         </div>
       </div>
 

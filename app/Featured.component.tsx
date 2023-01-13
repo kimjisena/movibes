@@ -20,8 +20,9 @@ export default function Featured () {
       .then((result) => {
         result.json()
         .then(data => {
-          console.log(data.results[0]);
-          setMovie(data.results[Math.floor(Math.random() * data.results.length)]);
+          let random = Math.floor(Math.random() * data.results.length);
+          console.log(data.results[random]);
+          setMovie(data.results[random]);
         });
       }).catch(err => {
         console.log(err);
