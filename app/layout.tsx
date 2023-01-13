@@ -22,7 +22,6 @@ export default function RootLayout({ children }: { children: any }) {
       .then((result) => {
         result.json()
         .then(data => {
-          console.log(data.results);
           setResult(data.results);
         });
       }).catch(err => {
