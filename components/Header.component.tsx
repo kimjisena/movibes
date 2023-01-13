@@ -7,31 +7,18 @@ import { FiSearch } from 'react-icons/fi';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
+type HeaderPropTypes = {
+  updateQuery: (value: string) => void,
+  query: string,
+}
 
 
-export default function Header () {
-  const [query, setQuery] = useState<string>('');
-  const [results, setResults] = useState<any[]>([]);
+export default function Header ( { updateQuery, query }: HeaderPropTypes) {
 
 
   const handleChange = (event: any) => {
-    setQuery(event.target.value);
+    updateQuery(event.target.value);
   }
-
-  useEffect(() => {
-    const rootUrl = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=en-US&page=1&include_adult=false&query=${query}`;
-
-    fetch(rootUrl)
-      .then((result) => {
-        result.json()
-        .then(data => {
-          console.log(data.results);
-          setResults(data.results);
-        });
-      }).catch(err => {
-        console.log(err);
-      })
-  }, [query]);
 
   return (
     <header className="w-full font-sans">
@@ -44,14 +31,6 @@ export default function Header () {
               <FiSearch size={24} />
             </div>
             <input onChange={handleChange} value={query} placeholder='Search for movies, TV shows...' type="text" className={`bg-darkgray rounded-3xl w-full text-lightgray text-md15 font-bold p-3 pl-16`} />
-
-            <div className="text-white bg-darkgray">
-            {
-              results.map((res, idx) => {
-                return <p key={idx} className={`border-b border-white pb-2`}>{res.title}</p>
-              })
-            }
-            </div>
           </div>
 
           <div className={`flex flex-row md:w-1/4 lg:w-1/5 justify-end items-center`}>
