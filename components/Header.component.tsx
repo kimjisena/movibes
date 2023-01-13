@@ -25,7 +25,7 @@ export default function Header () {
       .then((result) => {
         result.json()
         .then(data => {
-          console.log(data);
+          console.log(data.results);
           setResults(data.results);
         });
       }).catch(err => {
@@ -48,7 +48,7 @@ export default function Header () {
             <div className="text-white bg-darkgray">
             {
               results.map((res, idx) => {
-                return <p key={idx} className={`border-b border-white`}>{res.title}</p>
+                return <p key={idx} className={`border-b border-white pb-2`}>{res.title}</p>
               })
             }
             </div>
